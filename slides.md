@@ -4,9 +4,7 @@
 
 -------------------------------------------
 
-# Who am I?
-
-Architect / Developer / Teacher
+<span style="font-size: 5.5em;">&lambda;</span>
 
 -------------------------------------------
 
