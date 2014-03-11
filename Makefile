@@ -15,8 +15,6 @@ slides.tex: slides.md
 		   -o slides.tex
 
 clean:
-	-rm slides.html
-	-rm slides.pdf
 	-rm slides.tex
 	-rm slides.log
 	-rm slides.nav
@@ -25,3 +23,7 @@ clean:
 	-rm slides.vrb
 	-rm slides.aux
 	-rm slides.out
+
+mrproper: clean
+	-rm slides.html
+	-rm slides.pdf
