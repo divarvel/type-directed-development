@@ -14,39 +14,180 @@ Architect / Developer / Teacher
 
 -------------------------------------------
 
-# X-Driven Development
+```java
+
+public int addFiveAction(
+  params: Map<String, String>) {
+
+    String nbS = params.get("number");
+    if(!nbS.isEmpty()) {
+        int nb = Integer.parseInt(nbS);
+        return nb + 5;
+    } else {
+        return 0;
+    }
+}
+
+```
 
 -------------------------------------------
 
-Code-Driven Development?
+```java
+
+addFiveAction({ "number": "12" });
+    // 17
+
+addFiveAction({ "yolo": "12" });
+    // java.lang.NullPointerException
+
+addFiveAction({ "number": "yolo" })
+    // java.lang.NumberFormatException
+
+```
 
 -------------------------------------------
 
-LOLNOPE
+![](assets/cat-clothes.gif)
 
 -------------------------------------------
 
-Why?
+<div style="font-size: 0.8em;">
+
+```java
+
+int addFiveAction(
+  params: Map<String, String>) {
+    String nbS = params.get("number");
+
+    if(nbS != null) {
+        if(!nbS.isEmpty()) {
+            try {
+                int nb = Integer.parseInt(nbS)
+                return nb;
+            } catch(NumberFormatException e) {
+                return 0;
+            }
+        }
+    } else {
+        return 0;
+    }
+}
+
+```
+</div>
 
 -------------------------------------------
 
-Smaller bites
+<div style="font-size: 0.5em;">
+
+```java
+
+int addFiveAction(
+  params: Map<String, String>) {
+    String nbS1 = params.get("n1");
+    String nbS2 = params.get("n2");
+
+    if(nbS1 != null) {
+        if(!nbS1.isEmpty()) {
+            try {
+                int nb1 = Integer.parseInt(nbS1)
+                if(nbS2 != null) {
+                    if(!nbS2.isEmpty()) {
+                        try {
+                            int nb2 = Integer.parseInt(nbS2);
+                            return nb1 + nb2;
+                        } catch(NumberFormatException e) {
+                            return 0;
+                        }
+                    }
+                }
+            } catch(NumberFormatException e) {
+                return 0;
+            }
+        }
+    } else {
+        return 0;
+    }
+}
+
+```
+</div>
 
 -------------------------------------------
 
-CONFIDENCE
+![](assets/carrie.jpg)
+
 
 -------------------------------------------
 
-Test-Driven Development?
+![](assets/option.png)
 
 -------------------------------------------
 
-Good…
+
+```scala
+
+def parseInt(str: String):
+  Option[Int]
+
+def get(
+  index: String,
+  vals: Map[String, String]
+): Option[String]
+```
 
 -------------------------------------------
 
-… but not enough
+```scala
+def getInt(
+    index: String,
+    vals: Map[String, String]
+): Option[Int]
+```
+
+![](assets/flatmap.png)
+
+-------------------------------------------
+
+<div style="font-size: 0.9em;">
+```scala
+def addNumbersAction(
+  params: Map[String, String]
+): Int = {
+    val i1 = getInt("n1", params)
+    val i2 = getInt("n2", params)
+    i1.getOrElse(0) + i2.getOrElse(0)
+}
+
+```
+
+</div>
+
+-------------------------------------------
+
+![](assets/computer-ok.gif)
+
+-------------------------------------------
+
+Non-empty list
+
+![](assets/nel.png)
+
+-------------------------------------------
+
+![](assets/validation.png)
+
+-------------------------------------------
+
+![](assets/obvious.jpg)
+
+-------------------------------------------
+
+![](assets/computer-no.gif)
+
+-------------------------------------------
+
+Why not tests?
 
 -------------------------------------------
 
@@ -60,18 +201,9 @@ Good…
 
 « for all »
 
-
 -------------------------------------------
 
-# Type-Directed Development
-
--------------------------------------------
-
-Mythbuster
-
--------------------------------------------
-
-Expressive type systems
+![](assets/mythbusters.jpg)
 
 -------------------------------------------
 
@@ -83,15 +215,15 @@ Type inference
 
 ```haskell
 
-myVar =
+val myVar =
     "obviously a string"
 
-myVar = [ "obviously"
+val myVar = List( "obviously"
         , "a"
         , "list"
         , "of"
         , "strings"
-        ]
+        )
 
 ```
 </div>
@@ -104,65 +236,11 @@ Program &hArr; Proof
 
 -------------------------------------------
 
-Obviously correct programs
-
-Don't fix bugs, make them impossible
+![](assets/tardis.jpg)
 
 -------------------------------------------
 
-<div style="font-size: 2em;">
-
-```haskell
-
-data Option a =
-     Some a
-   | None
-
-```
-</div>
-
--------------------------------------------
-
-<div style="font-size: 2em;">
-
-```haskell
-
-mapOption ::
-    ( Option a
-    , (a -> b)
-    ) ->
-    Option b
-
-```
-</div>
-
--------------------------------------------
-
-<div style="font-size: 2em;">
-
-```haskell
-
-data NEList a = {
-    head :: a,
-    tail :: [a]
-}
-```
-</div>
-
--------------------------------------------
-
-<div style="font-size: 2em;">
-
-```haskell
-
-mapNEL ::
-    ( NEList a
-    , (a -> b)
-    ) ->
-    NEList b
-
-```
-</div>
+Expressive type systems
 
 -------------------------------------------
 
@@ -170,12 +248,13 @@ Parametricity
 
 -------------------------------------------
 
-<div style="font-size: 2em;">
+<div style="font-size: 1.7em;">
 
-```haskell
+```scala
 
-reverse ::
-    [a] -> [a]
+def reverse(
+  xs: List[A]
+): List[A]
 
 ```
 </div>
@@ -230,4 +309,8 @@ Thanks
 [Parametricity](http://dl.dropboxusercontent.com/u/7810909/media/doc/parametricity.pdf)
 
 <http://haskell.org>
+
+<http://scala.org>
+
+<http://rustlang.org>
 

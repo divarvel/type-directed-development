@@ -24,12 +24,12 @@ $else$
   html { background-color: black; }
   a { color: #FF0044; } a:hover {text-decoration: underline;}
   footer { position: absolute; bottom: 50px; right: 50px; }
-  strong,code {color: #FF0044; } 
-  pre>code, code.sourceCode { color: #FFF; }
+  strong,code {color: #000; } 
+  /*pre>code, code.sourceCode { color: #; }*/
   body {
       font-family: 'Merriweather Sans', arial, sans-serif;
       background-color: white;
-      color: white;
+      color: black;
       font-size: 30px;
       background: #232326;
   }
@@ -41,13 +41,13 @@ $else$
       -webkit-transition: left 400ms ease-in 0s;
       -ms-transition: left 400ms ease-in 0s;
       transition: left 400ms ease-in 0s;
-      background: #232326;
+      background: white;
   }
   section { left: -150%; }
   section[aria-selected] { left: 0; }
   section[aria-selected] ~ section { left: +150% }
 
-  .chapter { background-color: black;}
+  .chapter { background-color: white;}
   .chapter h1 {line-height: 600px; vertical-align: middle; margin: 0; text-align: center; display: block}
 
   h1,h2,h3,h4,h5,h6 {
@@ -57,24 +57,24 @@ $else$
 
   h1 {
       margin: 50px auto 0 auto;
-      color: #FF0044;
+      color: #000;
       font-size: 4em;
       text-shadow: 0px -1px 0px #000;
       text-align: center;
   }
   h2 {
-      color: #FAE50B;
+      color: #000;
       margin-top: 10px;
       font-size: 40px;
       text-align: left;
   }
   h3,h4,h5,h6 {
-      color: #FAE50B;
+      color: #000;
       margin-top: 10px;
       font-size: 30px;
       text-align: left;
   }
-  h1.title { color: #FFFFFF; font-size: 3em; }
+  h1.title { color: #000; font-size: 3em; }
   .author { color: #FF0066; }
   .date {color: #FAE50B; }
   footer {
@@ -122,6 +122,7 @@ $else$
 
   pre {
       /*font-size: 18px;*/
+      color: #000;
       margin: 2em;
   }
 </style>
