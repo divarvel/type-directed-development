@@ -1,6 +1,10 @@
-% Clean DB schemas
+% TDD as in Type-Directed Development
 % Clément Delafargue
-% BDX.IO 2014-10-17
+% scala.io 2014-10-24
+
+-------------------------------------------
+
+![](assets/clever.jpg)
 
 -------------------------------------------
 
@@ -8,242 +12,477 @@
 
 
 
-# SQL Database schemas
-![](assets/schema.jpg)
+-------------------------------------------
 
-
-# Write your schema yourself
-![](assets/robot-door.gif)
-
-
-# DB-agnosticism
-![](assets/trap.gif)
-
-
-# Use postgreSQL
-![](assets/elephant-jump.gif)
-
-# Shameless plug
-![](assets/austin-omg.gif)
-
-
-
-# Avoid ORMs
-![](assets/rube-goldberg.gif)
+![](../../stuff-indexes/lol/forrest.jpg)
 
 -------------------------------------------
 
-**But please use data mapping libraries**
+```scala
 
-Pomm (PHP), anorm / slick (scala), …
+def addFiveAction(
+    params: Map[String, String]
+) = {
+
+    val nbS = params("number")
+    if(nbS != "") {
+        val nb = nbS.toInt
+        nb + 5
+    } else {
+        0
+    }
+}
+
+```
+
+-------------------------------------------
+
+```scala
+
+addFiveAction(Map("number" -> "12"));
+    // 17
+
+addFiveAction(Map("yolo" -> "12"));
+    // java.lang.NullPointerException
+
+addFiveAction(Map("number" -> "yolo"));
+    // java.lang.NumberFormatException
+
+```
+
+-------------------------------------------
+
+# Pokemon Driven Development
+<video src="../../stuff-indexes/lol/cat-clothes.webm" autoplay loop/>
+
+-------------------------------------------
+
+<div style="font-size: 0.8em;">
+
+```scala
+
+def addFiveAction(
+  params: Map[String, String]) = {
+    val nbS = params("number")
+
+    if(nbS != null) {
+        if(!nbS != "") {
+            try {
+                val nb = nbS.toInt
+                nb + 5
+            } catch {
+                case e: NumberFormatException e => 0
+            }
+        }
+    } else {
+        0
+    }
+}
+
+```
+</div>
+
+-------------------------------------------
+
+<div style="font-size: 0.5em;">
+
+```scala
+
+def addNumbersAction(
+  params: Map[String, String]) = {
+    val nbS1 = params("n1");
+    val nbS2 = params("n2");
+
+    if(nbS1 != null) {
+        if(!nbS1 != "") {
+            try {
+                val nb1 = nbS1.toInt
+                if(nbS2 != null) {
+                    if(!nbS2 != "") {
+                        try {
+                            val nb2 = nbS2.toInt
+                            nbS1 + nbS2
+                        } catch {
+                            case e: NumberFormatException => 0
+                        }
+                    }
+                }
+            } catch {
+                case e: NumberFormatException => 0
+            }
+        }
+    } else {
+        0
+    }
+}
+
+```
+</div>
+
+-------------------------------------------
+
+![](assets/carrie.jpg)
 
 
+-------------------------------------------
 
-# Normal Forms
+![](assets/option.png)
+
+-------------------------------------------
+
+
+```scala
+
+def parseInt(str: String):
+  Option[Int]
+
+map[A,B]#get(key: A): Option[B]
+```
+
+-------------------------------------------
+
+```scala
+def getInt(
+    index: String,
+    vals: Map[String, String]
+): Option[Int]
+```
+
+-------------------------------------------
+
+![](assets/flatmap.png)
+
+-------------------------------------------
+
+<div style="font-size: 0.9em;">
+```scala
+def addNumbersAction(
+  params: Map[String, String]
+): Int = {
+    val i1 = getInt("n1", params)
+    val i2 = getInt("n2", params)
+    i1.getOrElse(0) + i2.getOrElse(0)
+}
+
+```
+
+</div>
+
+-------------------------------------------
+
+<video src="../../stuff-indexes/lol/computer-ok.webm" autoplay loop/>
+
+-------------------------------------------
+
+
+<div style="font-size: 1.5em;">
+```scala
+List[A: Ordering]#max: A
+```
+</div>
+
+-------------------------------------------
+
+<div style="font-size: 0.9em;">
+
+```scala
+scala> List[Int]().max
+
+java.lang.UnsupportedOperationException:
+empty.max
+```
+</div>
+
+
+-------------------------------------------
+
+Non-empty list
+
+![](assets/nel.png)
+
+-------------------------------------------
+
+![](assets/validation.png)
+
+
+# Have a look at scalaz
 ![](assets/academics.jpg)
 
-# Design with Querying in mind
+-------------------------------------------
 
-# Primary Keys
-
-#Use UUIDs
-
-(or random IDs)
-
-# Prevent entity enumeration
-![](assets/hacking.gif)
-
-# Prevent growth rate disclosure
-![](assets/hacking.gif)
-
-# Avoid linking the wrong table
-![](assets/table-flip.gif)
-
-
-# Default to not null
-![](assets/no-value.png)
-
-# Don't fear the join
-![](assets/elephants.gif)
-
-# Avoid deletions
-![](assets/delete.gif)
-
-# Avoid deletions
-
-```sqlpostgresql
-created_at
-    timestamp with time zone not null,
-deleted_at
-    timestamp with time zone
-```
-
-# Singular table names
+- Validation
+- \\/
+- NonEmptyList
+- Task
 
 -------------------------------------------
 
-**Uniform naming for PKs & FKs**
-
-
-    <table_name>_id
+<video src="../../stuff-indexes/lol/obviously.webm" autoplay loop/>
 
 -------------------------------------------
 
-**Uniform naming for PKs & FKs**
+<video src="../../stuff-indexes/lol/computer-no.webm" autoplay loop/>
 
-```sqlpostgresql
-select <fields> from
-  table_1
-  inner join table_2
-    on table_1.table_1_id =
-       table_2.table_2_id
-```
+
+# Why not tests?
+
+# Why not only tests?
 
 -------------------------------------------
 
-**Uniform naming for PKs & FKs**
+<span style="font-size: 5.5em;">∃</span>
 
-```sqlpostgresql
-select <fields> from
-  table_1
-  inner join table_2
-    using (table_1_id)
-```
+« there exists »
+
 -------------------------------------------
 
-**Uniform naming for PKs & FKs**
+<span style="font-size: 5.5em;">∀</span>
 
-```sqlpostgresql
-select <fields> from
-  table_1
-  natural join table_2
+« for all »
+
+-------------------------------------------
+
+Type &hArr; Property
+
+Program &hArr; Proof
+
+-------------------------------------------
+
+# provably > probably
+
+
+# Expressive type systems
+
+-------------------------------------------
+
+# Parametricity
+
+-------------------------------------------
+
+
+```scala
+
+def f(
+    x: A
+): A
+
 ```
 
 -------------------------------------------
 
-**Use enums**
+```scala
 
-```sqlpostgresql
-create type status
-as enum('pending', 'validated');
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C)
+
 ```
-
-
 -------------------------------------------
 
-**Use rich types**
+```scala
 
-    inet (IP address)
-    timestamp with time zone
-    point (2D point)
-    tstzrange (time range)
-    interval (duration)
+def reverse[A](
+    xs: List[A]
+): List[A]
 
--------------------------------------------
-
-**Create your own**
-
-```sqlpostgresql
-    create type my type
-    as (
-        field1 int,
-        field2 text
-    );
 ```
+-------------------------------------------
+
+# Theorems for free
+<video src="../../stuff-indexes/lol/money-shower.webm" autoplay loop/>
 
 -------------------------------------------
 
-**Use arrays**
+```scala
+trait List[A] {
+    def filter(p: A => Boolean): List[A]
 
-```sqlpostgresql
-    select '{1,2,3}'::int[]
+    def map[B](f: A => B): List[B]
+}
+
+l.filter(compose(p,f)).map(f) ==
+l.map(f).filter(f)
 ```
 
 -------------------------------------------
 
-**Rich types => powerful constraints**
 
-```sqlpostgresql
-create table reservation(
-    reservation_id uuid primary key,
-    dates tstzrange not null,
-    exclude using gist (dates with &&)
-);
-```
-# You can dump K/V data
-![](assets/shape-toy.gif)
+# null
+<video src="../../stuff-indexes/lol/bang-boom.webm" autoplay loop/>
 
-# You can dump JSON data
-![](assets/shape-toy.gif)
+# reflection
+<video src="../../stuff-indexes/lol/bicycle-gorilla.webm" autoplay loop/>
 
--------------------------------------------
+# exceptions
+<video src="../../stuff-indexes/lol/retards.webm" autoplay loop/>
 
-**Common Table Expressions**
+# toString / equals / hashCode
+<video src="../../stuff-indexes/lol/driving-fail.webm" autoplay loop/>
 
-```sqlpostgresql
-with sub_request as (
-    select <fields> from table1
-)
-
-select <fields> from sub_request;
-```
-
-# Shameless plug
-![](assets/austin-omg.gif)
+# Side effects
+<video src="../../stuff-indexes/lol/nazi-chainsaw.webm" autoplay loop/>
 
 
+# Fast and loose reasoning is morally correct
 
-# jDbT
-
-<https://github.com/divarvel/jdbt>
+# Scala collections are morally disturbing
+<video src="../../stuff-indexes/lol/bad-panda.webm" autoplay loop/>
 
 -------------------------------------------
 
-**jDbT**
 
-```yaml
-status:
-  - Test
-  - Prod
+# Type-Directed Development
 
-member:
-  name: text
-  email: text
-  status: status | 'Test'
-  __unique: [ name, email ]
-```
+# Confidence
+
+# Small bites
+<video src="../../stuff-indexes/lol/parallel-chew.webm" autoplay loop/>
+
+# Hole-Driven-Development
+<video src="../../stuff-indexes/lol/abyss.webm" autoplay loop/>
 
 -------------------------------------------
 
-**jDbT**
+```scala
+case object Hole
 
-```yaml
-post:
-  member_id:
-  +?title: text
-  ?content: text
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = Hole
 
-tag:
-    +name: text
-    __check: name <> 'forbidden'
 ```
+
+Hole has type `A => C`
 
 -------------------------------------------
 
-**jDbT**
+```scala
 
-```yaml
-post_tag:
-    post_id:
-    tag_id:
-    __pk: [ tag_id, post_id ]
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = (x: A) => Hole
+
 ```
+
+`x` has type `A`
+
+Hole has type `C`
 
 -------------------------------------------
 
-**jDbT**
+```scala
 
-![](assets/schema.png)
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = (x: A) => g(Hole)
+
+```
+
+`X` has type `A`
+
+Hole has type `B`
+
+-------------------------------------------
+
+
+```scala
+
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = (x: A) => g(f(Hole))
+
+```
+`x` has type `A`
+
+Hole has type `A`
+
+`Hole = x`
+
+-------------------------------------------
+
+```scala
+
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = (x: A) => g(f(x))
+
+```
+
+# Types are the best doc
+
+Hoogle
+<http://www.haskell.org/hoogle>
+
+
+# Types can't always prove everything
+
+# And that's ok
+
+-------------------------------------------
+
+```scala
+
+def reverse[A](
+    xs: List[A]
+): List[A]
+
+```
+-------------------------------------------
+
+<div style="font-size: 1.2em;">
+
+```scala
+
+def reverseProp[A: Equal](
+  xs: List[A],
+  ys: List[A]
+) = {
+
+    reverse(xs ++ ys) ==
+    reverse(ys) ++ reverse(xs)
+}
+```
+
+</div>
+
+# Property-based reasoning
+
+# Perfect for edge cases
+
+-------------------------------------------
+
+Types *then*
+
+Property-based tests *then*
+
+Unit tests
+
+# Model data as case classes
+
+# Lay out the function types
+
+# Write property-based tests
+
+# Implement
+
+# Unit test
 
 
 # Thanks
+
+-------------------------------------------
+
+[Parametricity](http://dl.dropboxusercontent.com/u/7810909/media/doc/parametricity.pdf)
+
+<http://haskell.org>
+
+<http://scala.org>
+
+<http://rustlang.org>
+

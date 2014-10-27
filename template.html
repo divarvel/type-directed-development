@@ -29,19 +29,38 @@ $else$
   strong,code {color: #000; } 
   body {
       font-family: 'Merriweather Sans', arial, sans-serif;
-      background-color: white;
+      background-color: black;
       color: black;
       font-size: 30px;
       background: #232326;
   }
 
+  .before {
+      z-index: 10000;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      color: #fff;
+      background-color: #000;
+      text-align: right;
+  }
+  .after {
+      z-index: 10000;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      text-align: right;
+  }
+
 
   /* Transition effect */
   section {
+      /*
       -moz-transition: left 400ms ease-in 0s;
       -webkit-transition: left 400ms ease-in 0s;
       -ms-transition: left 400ms ease-in 0s;
       transition: left 400ms ease-in 0s;
+      */
       background: white;
   }
   section { left: -150%; }
@@ -111,13 +130,6 @@ $else$
       display: block;
       margin-top: 140px;
   }
-  video {
-      position: absolute;
-      top: 210px;
-      width: 260px;
-      left: 445px;
-      box-shadow: 0 0 10px black;
-  }
   #arrow {
       position: absolute;
       top: 165px;
@@ -145,7 +157,9 @@ $else$
       z-index: 1000;
   }
 
-  .slide h1+figure img {
+  .slide h1+figure img,
+  .slide h1+video,
+  .slide video {
       display: block;
       width: 100%;
       height: 100%;
@@ -171,6 +185,11 @@ $for(header-includes)$
 $endfor$
 </head>
 <body>
+<div class="before">
+    <img src="assets/scalaio_medium.png" />
+</div>
+<div class="after">
+</div>
 $if(title)$
 <section>
   <h1 class="title">$title$</h1>
