@@ -1,6 +1,6 @@
 % TDD, as in <span class="red">Type</span>-Directed Development
 % Clément Delafargue
-% codemesh 2014-11-04
+% TDD Geecon 2015-01-30
 
 -------------------------------------------
 
@@ -9,6 +9,10 @@
  - [\@clementd](https://twitter.com/clementd) on twitter
  - [cltdl.fr/blog](https://cltdl.fr/blog)
  - [clever cloud](http://clever-cloud.com)
+
+-------------------------------------------
+
+![](assets/clever.png)
 
 -------------------------------------------
 
@@ -449,7 +453,7 @@ x.toString
 <video src="../../stuff-indexes/lol/retards.webm" loop/>
 
 # Side effects
-<video src="../../stuff-indexes/lol/nazi-chainsaw.webm" loop/>
+![](../../stuff-indexes/lol/spock-sob.jpg)
 
 # side-effects
 
@@ -843,3 +847,8 @@ Unit tests
 # Thanks
 <video src="../../stuff-indexes/lol/axolotl.webm" loop/>
 
+-------------------------------------------
+
+ - [\@clementd](https://twitter.com/clementd) on twitter
+ - [cltdl.fr/blog](https://cltdl.fr/blog)
+ - [clever-cloud.com](http://clever-cloud.com)
