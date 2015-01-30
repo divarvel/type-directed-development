@@ -142,6 +142,10 @@ def addNumbersAction(
 ```
 </div>
 
+<details>Hard to read, easy to get wrong, information lost. The code's
+structure si not correlated to the problem structure anymore. accidental
+complexity</details>
+
 -------------------------------------------
 
 ![](assets/carrie.jpg)
@@ -149,6 +153,8 @@ def addNumbersAction(
 -------------------------------------------
 
 ## Thinking with types
+
+<details>Encode that information in the type system</details>
 
 -------------------------------------------
 
@@ -187,6 +193,8 @@ def parseInt(
 
 ![](assets/option.png)
 
+<details>Aka maybe, optional</details>
+
 -------------------------------------------
 
 
@@ -210,6 +218,8 @@ def getInt(
 
 ![](assets/flatmap.png)
 
+<details>Chain the computations, fail if one fails: sequentiality</details>
+
 -------------------------------------------
 
 <div style="font-size: 0.9em;">
@@ -223,8 +233,10 @@ def addNumbersAction(
 }
 
 ```
-
 </div>
+
+<details>We can change the default data injection point, and the types will change</details>
+
 
 -------------------------------------------
 
@@ -275,6 +287,9 @@ def addNumbersAction(
 
 ## by construction
 
+<details>Impossible to express an incorrect program.</details>
+
+
 -------------------------------------------
 
 <video src="../../stuff-indexes/lol/obviously.webm" loop/>
@@ -282,6 +297,8 @@ def addNumbersAction(
 -------------------------------------------
 
 ## Why not tests?
+
+<details>Not the real question</details>
 
 -------------------------------------------
 
@@ -292,6 +309,9 @@ def addNumbersAction(
 <span style="font-size: 5.5em;">∃</span>
 
 « there exists »
+
+<details>software testing can only be used to show the presence of bugs, not
+their absence</details>
 
 -------------------------------------------
 
@@ -311,21 +331,34 @@ def addNumbersAction(
 
 # <br/><br />  <small>provably > probably</small>
 
+<details>not necessarily a formal proof (expensive), but it's doable and the
+program has the same structure as the proof</details>
+
 -------------------------------------------
 
 ## Expressive type systems
+
+<details>not necessarily a formal proof (expensive), but it's doable and the
+program has the same structure as the proof</details>
 
 -------------------------------------------
 
 ## Parametricity
 
+
 -------------------------------------------
 
 ## Parametricity <br /> (aka generics)
 
+<details>Most important feature in a type system. I don't take seriously
+languages with static types and no parametricity</details>
+
 # Ignorance is bliss
 
 <video src="../../stuff-indexes/lol/i-dont-care.webm" loop/>
+
+<details>Prevents you from assuming too much. You can only use the properties
+you've explicitely asked for</details>
 
 # Parametricity
 
@@ -335,6 +368,9 @@ def addNumbersAction(
 def f[A](x: A): A
 ```
 </div>
+
+<details>Assuming it returns a value and doesn't crash or do stupid things, it
+can only return its argument: no way to construct an A</details>
 
 # Parametricity
 
@@ -348,15 +384,23 @@ def compose[A,B,C](
 ```
 </div>
 
+<details>only way to get a C is to apply g to a B, only way to get a B is to
+apply f to an A, which you have.</details>
+
 # Parametricity
 
 ```scala
 def rev[A](xs: List[A]): List[A]
 ```
 
+<details>types aren't always once-inhabited, but they still prove interesting
+things and reduce dramatically the number of tests needed</details>
+
 -------------------------------------------
 
 ### `rev(Nil)` <br /> `==` <br/> `Nil`
+
+<details>you can't create As out of thin air, so nil -> nil</details>
 
 -------------------------------------------
 
@@ -379,6 +423,8 @@ trait List[A] {
 l.filter(compose(p,f)).map(f) ==
 l.map(f).filter(p)
 ```
+
+<details>mathematical proof of that equality. No test needed</details>
 
 -------------------------------------------
 
@@ -439,6 +485,8 @@ x match {
 # toString / equals / hashCode
 <video src="../../stuff-indexes/lol/driving-fail.webm" loop/>
 
+<details>same as reflection: breaks ignorance by giving behaviour to all types</details>
+
 -------------------------------------------
 
 <div class="text big">
@@ -451,6 +499,8 @@ x.toString
 
 # no exceptions
 <video src="../../stuff-indexes/lol/retards.webm" loop/>
+
+<details>same as null: bottom</details>
 
 # Side effects
 ![](../../stuff-indexes/lol/spock-sob.jpg)
@@ -465,17 +515,28 @@ def f[A](x: A): String = {
 }
 ```
 
+<details>side effects not encoded in types => hidden information. Includes
+unrestricted mutability</details>
+
 -------------------------------------------
 
 # Fast and loose reasoning is morally correct
+
+<details>Let's program in a safe subset. It's ok to do so even though it isn't
+enforced by the compiler</details>
 
 # <span class="red">Type</span>-Directed Development
 
 # Not a silver bullet
 <video src="../../stuff-indexes/lol/itworks.webm" loop/>
 
+<details>types can't always prove everything</details>
+
+
 # Just helpful
 <video src="../../stuff-indexes/lol/fabulous.webm" loop/>
+
+<details>but they bring a lot</details>
 
 # Confidence
 <video src="../../stuff-indexes/lol/bungee_explosion.webm" loop/>
@@ -492,9 +553,14 @@ def f[A](x: A): String = {
 
 ## Play Framework
 
+<details>minor version but changes in the streaming layer, which I used
+extensively</details>
+
 -------------------------------------------
 
 ## Scalaz 6.x -> 7.x
+
+<details>major bump, whole different architecture, type changes</details>
 
 -------------------------------------------
 
@@ -504,21 +570,34 @@ def f[A](x: A): String = {
 
 ### It typechecks, ship it
 
+<details>4 evenings / nights of mindless refactoring. When it compiled, it was
+ok (I also ran tests to be sure, though)</details>
+
+
 
 # Modular thinking
 
 <video src="../../stuff-indexes/lol/hamsters.webm" loop/>
+
+<details>Properties are enforced at the boundaries, you can safely ignore the
+rest of the world when working on a function</details>
 
 -------------------------------------------
 
 ## Not just about safety
 <video src="../../stuff-indexes/lol/fire-trick.webm" loop/>
 
+<details>often the first argument but imo not the most important</details>
+
 # Types lay out algorithms
 <video src="../../stuff-indexes/lol/gym.webm" loop/>
 
+<details>just as TDD is important for design</details>
+
 # Hole-Driven-Development
 <video src="../../stuff-indexes/lol/abyss.webm" loop/>
+
+<details>step by step, compiler assisted code writing</details>
 
 -------------------------------------------
 
@@ -649,6 +728,8 @@ def fmap[A,B](
 
 <video src="../../stuff-indexes/lol/cyberman_dance.webm" loop/>
 
+<details>obvious</details>
+
 -------------------------------------------
 
 ## Type checking
@@ -676,13 +757,21 @@ def fmap[A,B](
 
 ## `a -> b -> a`
 
+<details>function which takes an a and a b, produces an a</details>
+
 -------------------------------------------
 
 ## `a -> (b -> a)`
 
+<details>currying. function which takes an a, produces a function that takes a
+b, produces an a. allows for very effective composition</details>
+
+
 -------------------------------------------
 
 ## `(Ord a) =>`<br/>`[a] -> [a]`
+
+<details>The only thing we know about a is that it has a total order</details>
 
 -------------------------------------------
 
@@ -718,6 +807,9 @@ def fmap[A,B](
 
 <video src="../../stuff-indexes/lol/dumb_dumber.webm" loop/>
 
+<details>I use types when I program in javascript. I'm just not helped by a
+compiler</details>
+
 -------------------------------------------
 
 # Types can't always prove everything
@@ -736,6 +828,9 @@ def reverse[A](
 ): List[A]
 ```
 </div>
+
+<details>How many tests do i have to write to completely specify its
+behaviour?</details>
 
 -------------------------------------------
 
@@ -759,6 +854,11 @@ def reverseProp[A: Equal](
 
 # Perfect for edge cases
 
+# Test the specification
+
+<details>used by John Hugues to assess the consistency of norms in embeded
+systems for cars</details>
+
 -------------------------------------------
 
 Types *then*
@@ -773,10 +873,6 @@ Unit tests
 
 -------------------------------------------
 
-## Model data as records
-
--------------------------------------------
-
 ## Lay out the function types
 
 -------------------------------------------
@@ -785,7 +881,7 @@ Unit tests
 
 -------------------------------------------
 
-### Types + Operations + Laws
+### Operations on a type + Laws
 
 -------------------------------------------
 
@@ -793,6 +889,10 @@ Unit tests
 
 # Algebra
 ![](./assets/chalkboard.jpg)
+
+-------------------------------------------
+
+## Figure out the data structure
 
 -------------------------------------------
 
@@ -835,12 +935,17 @@ Unit tests
 
 # Read this
 
- - TAPL
- - PFPL
+ - [TAPL](http://www.cis.upenn.edu/~bcpierce/tapl/)
+ - [PFPL](http://www.cs.cmu.edu/~rwh/plbook/book.pdf)
 
 # Read this
 
+ - [Functional Programming in Scala](http://manning.com/bjarnason)
  - [Functional and Reactive Domain Modeling](http://manning.com/ghosh2/)
+
+# Read this
+
+ - [\@parametricity](https://twitter.com/parametricity)
  - [Parametricity](http://dl.dropboxusercontent.com/u/7810909/media/doc/parametricity.pdf)
  - [Theorems for free](http://ttic.uchicago.edu/~dreyer/course/papers/wadler.pdf)
 
