@@ -310,8 +310,15 @@ def addNumbersAction(
 
 « there exists »
 
-<details>software testing can only be used to show the presence of bugs, not
-their absence</details>
+<details>tests show the presence of bugs, not their absence</details>
+
+-------------------------------------------
+
+## `Int -> Int`
+
+-------------------------------------------
+
+### (2<sup>32</sup>)<sup><sup>(2<sup>32</sup>)</sup></sup>
 
 -------------------------------------------
 
