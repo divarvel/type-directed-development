@@ -296,6 +296,10 @@ def addNumbersAction(
 
 -------------------------------------------
 
+![](../../stuff-indexes/lol/correcto.jpg)
+
+-------------------------------------------
+
 ## Why not tests?
 
 <details>Not the real question</details>
@@ -347,6 +351,29 @@ program has the same structure as the proof</details>
 
 <details>not necessarily a formal proof (expensive), but it's doable and the
 program has the same structure as the proof</details>
+
+-------------------------------------------
+
+
+## Maybe
+
+-------------------------------------------
+
+## NonEmptyList
+
+<details>list guaranteed to have at least one element</details>
+
+-------------------------------------------
+
+## newtype + smart constructor
+
+<details>email / string. No runtime cost. Gateway when you construct value</details>
+
+-------------------------------------------
+
+## Tagged types
+
+<details>perfect for physical quantities. Type + unit</details>
 
 -------------------------------------------
 
