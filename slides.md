@@ -792,7 +792,7 @@ def compose[A,B,C](
 
 -------------------------------------------
 
-<video src="./assets/hoogle1.mkv" autoplay loop/>
+<video src="./assets/hoogle1.webm" autoplay loop/>
 
 -------------------------------------------
 
@@ -800,7 +800,7 @@ def compose[A,B,C](
 
 -------------------------------------------
 
-<video src="./assets/hoogle2.mkv" autoplay loop/>
+<video src="./assets/hoogle2.webm" autoplay loop/>
 
 -------------------------------------------
 
