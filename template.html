@@ -265,11 +265,7 @@ $for(header-includes)$
 $endfor$
 </head>
 <body>
-<!--<div class="before">
-    <img src="assets/scalaio_medium.png" />
-</div>-->
-<div class="after">
-</div>
+<div class="after">Clever-Cloud / @clementd</div>
 $if(title)$
 <section class="title-slide">
   <h1 class="title">$title$</h1>
@@ -300,6 +296,9 @@ $endfor$
 $dzslides-core$
 
 <style>
+    .after {
+        font-size: 0.5em;
+    }
     .title-slide{
       background-color: #cb243cff;
       color: white;
@@ -333,6 +332,15 @@ $dzslides-core$
 
     .yolo h2 {
         background-color: rgba(0,0,0,0);
+    }
+    code > span.fu {
+        color: rgb(118, 157, 255) !important;
+    }
+    code > span.dt {
+        color: rgb(241, 53, 0) !important;
+    }
+    code > span.ot {
+        color: #00bb35 !important;
     }
     body.loaded {
      height: 450px;

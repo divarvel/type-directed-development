@@ -1,28 +1,43 @@
-% TDD, as in Type-Directed Development
+% TDD as in Type-Directed Development
 % Clément Delafargue
-% 2014-04-11
+% scala.io 2014-10-24
 
 -------------------------------------------
 
-<span style="font-size: 5.5em;">&lambda;</span>
+# <span style="font-size: 8em;">λ</span>
 
 -------------------------------------------
 
-![](assets/forrest.jpg)
+![](/Users/clementd/Projects/perso/gifs/forrest.jpg)
 
 -------------------------------------------
 
-```java
+## Example time
 
-public int addFiveAction(
-  params: Map<String, String>) {
+-------------------------------------------
 
-    String nbS = params.get("number");
-    if(!nbS.isEmpty()) {
-        int nb = Integer.parseInt(nbS);
-        return nb + 5;
+# Example time
+
+```
+GET /endpoint?number=5
+
+10
+```
+
+-------------------------------------------
+
+```scala
+
+def addFiveAction(
+    params: Map[String, String]
+) = {
+
+    val nbS = params("number")
+    if(nbS != "") {
+        val nb = nbS.toInt
+        nb + 5
     } else {
-        return 0;
+        0
     }
 }
 
@@ -30,44 +45,45 @@ public int addFiveAction(
 
 -------------------------------------------
 
-```java
+```scala
 
-addFiveAction({ "number": "12" });
+addFiveAction(Map("number" -> "12"));
     // 17
 
-addFiveAction({ "yolo": "12" });
+addFiveAction(Map("yolo" -> "12"));
     // java.lang.NullPointerException
 
-addFiveAction({ "number": "yolo" })
+addFiveAction(Map("number" -> "yolo"));
     // java.lang.NumberFormatException
 
 ```
 
 -------------------------------------------
 
-![](assets/cat-clothes.gif)
+# Pokemon Driven Development
+<video src="/Users/clementd/Projects/perso/gifs/cat-clothes.webm" autoplay loop/>
 
 -------------------------------------------
 
 <div style="font-size: 0.8em;">
 
-```java
+```scala
 
-int addFiveAction(
-  params: Map<String, String>) {
-    String nbS = params.get("number");
+def addFiveAction(
+  params: Map[String, String]) = {
+    val nbS = params("number")
 
     if(nbS != null) {
-        if(!nbS.isEmpty()) {
+        if(!nbS != "") {
             try {
-                int nb = Integer.parseInt(nbS)
-                return nb;
-            } catch(NumberFormatException e) {
-                return 0;
+                val nb = nbS.toInt
+                nb + 5
+            } catch {
+                case e: NumberFormatException e => 0
             }
         }
     } else {
-        return 0;
+        0
     }
 }
 
@@ -76,35 +92,49 @@ int addFiveAction(
 
 -------------------------------------------
 
+## De plous en plous difficile
+
+-------------------------------------------
+
+# De plous en plous difficile
+
+```
+GET /endoint?n1=20&n2=22
+
+42
+```
+
+-------------------------------------------
+
 <div style="font-size: 0.5em;">
 
-```java
+```scala
 
-int addFiveAction(
-  params: Map<String, String>) {
-    String nbS1 = params.get("n1");
-    String nbS2 = params.get("n2");
+def addNumbersAction(
+  params: Map[String, String]) = {
+    val nbS1 = params("n1");
+    val nbS2 = params("n2");
 
     if(nbS1 != null) {
-        if(!nbS1.isEmpty()) {
+        if(!nbS1 != "") {
             try {
-                int nb1 = Integer.parseInt(nbS1)
+                val nb1 = nbS1.toInt
                 if(nbS2 != null) {
-                    if(!nbS2.isEmpty()) {
+                    if(!nbS2 != "") {
                         try {
-                            int nb2 = Integer.parseInt(nbS2);
-                            return nb1 + nb2;
-                        } catch(NumberFormatException e) {
-                            return 0;
+                            val nb2 = nbS2.toInt
+                            nbS1 + nbS2
+                        } catch {
+                            case e: NumberFormatException => 0
                         }
                     }
                 }
-            } catch(NumberFormatException e) {
-                return 0;
+            } catch {
+                case e: NumberFormatException => 0
             }
         }
     } else {
-        return 0;
+        0
     }
 }
 
@@ -115,7 +145,42 @@ int addFiveAction(
 
 ![](assets/carrie.jpg)
 
+-------------------------------------------
 
+## Thinking with types
+
+-------------------------------------------
+
+## From a map, I can get a value…
+
+-------------------------------------------
+
+## `maybe`
+
+-------------------------------------------
+
+```scala
+def getKeyAt(
+    values: Map[String,String],
+    key: String
+): MaybeString
+```
+
+-------------------------------------------
+
+## From a string, I can get an int…
+
+-------------------------------------------
+
+## `maybe`
+
+-------------------------------------------
+
+```scala
+def parseInt(
+    str: String
+): MaybeInt
+```
 -------------------------------------------
 
 ![](assets/option.png)
@@ -128,10 +193,7 @@ int addFiveAction(
 def parseInt(str: String):
   Option[Int]
 
-def get(
-  index: String,
-  vals: Map[String, String]
-): Option[String]
+map[A,B]#get(key: A): Option[B]
 ```
 
 -------------------------------------------
@@ -142,6 +204,8 @@ def getInt(
     vals: Map[String, String]
 ): Option[Int]
 ```
+
+-------------------------------------------
 
 ![](assets/flatmap.png)
 
@@ -163,144 +227,651 @@ def addNumbersAction(
 
 -------------------------------------------
 
-![](assets/computer-ok.gif)
-
--------------------------------------------
-
-Non-empty list
-
-![](assets/nel.png)
-
--------------------------------------------
-
-![](assets/validation.png)
-
--------------------------------------------
-
-![](assets/obvious.jpg)
-
--------------------------------------------
-
-![](assets/computer-no.gif)
-
--------------------------------------------
-
-Why not tests?
-
--------------------------------------------
-
-<span style="font-size: 5.5em;">&exist;</span>
-
-« there exists »
-
--------------------------------------------
-
-<span style="font-size: 5.5em;">&forall;</span>
-
-« for all »
-
--------------------------------------------
-
-![](assets/mythbusters.jpg)
-
--------------------------------------------
-
-Type inference
-
--------------------------------------------
-
-<div style="font-size: 1.5em;">
-
-```haskell
-
-val myVar =
-    "obviously a string"
-
-val myVar = List( "obviously"
-        , "a"
-        , "list"
-        , "of"
-        , "strings"
-        )
-
-```
-</div>
-
--------------------------------------------
-
-Type &hArr; Property
-
-Program &hArr; Proof
-
--------------------------------------------
-
-![](assets/tardis.jpg)
-
--------------------------------------------
-
-Expressive type systems
-
--------------------------------------------
-
-Parametricity
-
--------------------------------------------
-
-<div style="font-size: 1.7em;">
+<div style="font-size: 0.5em;">
 
 ```scala
 
-def reverse(
-  xs: List[A]
-): List[A]
+def addNumbersAction(
+  params: Map[String, String]) = {
+    val nbS1 = params("n1");
+    val nbS2 = params("n2");
+
+    if(nbS1 != null) {
+        if(!nbS1 != "") {
+            try {
+                val nb1 = nbS1.toInt
+                if(nbS2 != null) {
+                    if(!nbS2 != "") {
+                        try {
+                            val nb2 = nbS2.toInt
+                            nbS1 + nbS2
+                        } catch {
+                            case e: NumberFormatException => 0
+                        }
+                    }
+                }
+            } catch {
+                case e: NumberFormatException => 0
+            }
+        }
+    } else {
+        0
+    }
+}
 
 ```
 </div>
 
 -------------------------------------------
 
-# Type-Directed Development
+<video src="/Users/clementd/Projects/perso/gifs/computer-ok.webm" autoplay loop/>
 
 -------------------------------------------
 
-Confidence
+## Correct…
 
 -------------------------------------------
 
-Small bites
+## By construction
 
 -------------------------------------------
 
-Types are the best doc
-
-Hoogle
+<video src="/Users/clementd/Projects/perso/gifs/computer-no.webm" autoplay loop/>
 
 -------------------------------------------
 
-Types can't always prove everything
+## Why not tests?
 
 -------------------------------------------
 
-And that's ok
+## Why not <i>only</i> tests?
+
+-------------------------------------------
+
+# <span style="font-size: 5.5em;">∃</span><br>« there exists »
+
+-------------------------------------------
+
+## `Int -> Int`
+
+-------------------------------------------
+
+## `2`<sup>`32`</sup>
+
+-------------------------------------------
+
+## `2`<sup>`64`</sup>
+
+-------------------------------------------
+
+## `String -> String`
+
+-------------------------------------------
+
+## `∞`
+
+-------------------------------------------
+
+## `∞` (ish)
+
+-------------------------------------------
+
+# <span style="font-size: 5.5em;">∀</span><br>« for all »
+
+-------------------------------------------
+
+## Type &hArr; Property
+
+-------------------------------------------
+
+## Program &hArr; Proof
+
+-------------------------------------------
+
+## provably > probably
+
+-------------------------------------------
+
+## Expressive type systems
+
+-------------------------------------------
+
+## Everything is an expression
+
+-------------------------------------------
+
+## Typed Control structures
+
+-------------------------------------------
+
+# Homogeneous branches
+
+```scala
+
+
+
+
+val myValue = if(expression) {
+  "if true"
+} else {
+  "if false"
+}
+```
+
+-------------------------------------------
+
+# Typed loops
+
+```scala
+
+
+
+val myList =
+  for(x <- xs)
+  yield x * 2
+```
+
+-------------------------------------------
+
+# Avoid stupid mistakes
+
+```c
+
+
+
+if(error)
+  goto fail;
+  goto fail;
+```
+
+-------------------------------------------
+
+## Maybe
+
+-------------------------------------------
+
+## NonEmptyList
+
+-------------------------------------------
+
+## Validation
+
+-------------------------------------------
+
+## `newtype` + smart constructors
+
+-------------------------------------------
+
+## tagged types
+
+-------------------------------------------
+
+```scala
+sealed trait Meter
+sealed trait Mile
+
+type RegularLength = Int @@ Meter
+type ImperialGobbledygook = Int @@ Mile
+
+
+val marsProbeAltitude: RegularLength = …
+```
+
+-------------------------------------------
+
+## Memory management
+
+-------------------------------------------
+
+## Resource management
+
+-------------------------------------------
+
+## Parametricity
+
+-------------------------------------------
+
+## Parametricity<br>(aka generics)
+
+-------------------------------------------
+
+# Ignorance is bliss
+
+<video src="/Users/clementd/Projects/perso/gifs/i-dont-care.webm" autoplay loop/>
+
+-------------------------------------------
+
+# Parametricity
+
+```scala
+
+
+def f(
+    x: A
+): A
+
+```
+
+-------------------------------------------
+
+# Parametricity
+
+```scala
+
+
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C)
+
+```
+
+-------------------------------------------
+
+# Parametricity
+
+```scala
+
+
+def reverse[A](
+    xs: List[A]
+): List[A]
+
+```
+
+-------------------------------------------
+
+## `reverse(Nil) == Nil`
+
+-------------------------------------------
+
+## `reverse(xs).contains(a)`<br>`=>`<br>`xs.contains(a)`
+
+-------------------------------------------
+
+## Theorems for free
+<video src="/Users/clementd/Projects/perso/gifs/money.webm" autoplay loop/>
+
+-------------------------------------------
+
+```scala
+trait List[A] {
+    def filter(p: A => Boolean): List[A]
+
+    def map[B](f: A => B): List[B]
+}
+
+l.filter(compose(p,f)).map(f) ==
+l.map(f).filter(p)
+```
+
+-------------------------------------------
+
+## Discipline
+
+-------------------------------------------
+
+# no `null`s
+<video src="/Users/clementd/Projects/perso/gifs/bang-boom.webm" autoplay loop/>
+
+-------------------------------------------
+
+## `Type <=> Property`
+
+-------------------------------------------
+
+## `null` can inhabit any type
+
+-------------------------------------------
+
+## `null` can prove every property
+
+-------------------------------------------
+
+## No exceptions
+
+-------------------------------------------
+
+# no reflection
+
+<video src="/Users/clementd/Projects/perso/gifs/bicycle-gorilla.webm" autoplay loop/>
+
+-------------------------------------------
+
+## Reflection breaks blissful ignorance
+
+-------------------------------------------
+
+# Reflection
+
+```scala
+
+
+def f[A](x: A): String
+```
+
+-------------------------------------------
+
+```scala
+def f[A](x: A): String =
+
+x match {
+  case v: String => v
+  case v: Int => "int"
+  case _ => "whatever"
+}
+```
+
+-------------------------------------------
+
+# no `toString` / `equals` / `hashCode`
+<video src="/Users/clementd/Projects/perso/gifs/driving-fail.webm" autoplay loop/>
+
+-------------------------------------------
+
+```scala
+def f[A](x: A): String =
+x.toString
+```
+
+-------------------------------------------
+
+# Side effects
+<video src="/Users/clementd/Projects/perso/gifs/sam-sad.webm" autoplay loop/>
+
+-------------------------------------------
+
+```scala
+def f[A](x: A): String = {
+  donaldTrump.sendTweet()
+  launchBallisticMissile()
+
+  System.getenv("JAVA_HOME")
+}
+```
+
+-------------------------------------------
+
+## Fast and loose reasoning is morally correct
+
+-------------------------------------------
+
+## <i>Type</i>-Directed Development
+
+-------------------------------------------
+
+## Not a silver bullet
+
+-------------------------------------------
+
+## Just helpful
+
+-------------------------------------------
+
+## Confidence
+
+-------------------------------------------
+
+# Modular thinking
+
+<video src="/Users/clementd/Projects/perso/gifs/bunny-nom.webm" autoplay loop/>
+
+-------------------------------------------
+
+## Not just about safety
+
+-------------------------------------------
+
+## Types help with structure
+
+-------------------------------------------
+
+## Ensure consistency, step by step
+
+-------------------------------------------
+
+```scala
+def myMethod(a: Input): Output = ???
+
+def myOtherMethod(
+  a: List[Input]
+): List[Output] = {
+
+  a.map(myMethod)
+
+}
+```
+
+-------------------------------------------
+
+## Type check `/=`Compilation
+
+# Hole-Driven-Development
+
+<video src="/Users/clementd/Projects/perso/gifs/abyss.webm" autoplay loop/>
+
+-------------------------------------------
+
+```scala
+case object Hole
+
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = Hole
+```
+
+Hole has type `A => C`
+
+-------------------------------------------
+
+```scala
+
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = (x: A) => Hole
+```
+
+`x` has type `A`  
+Hole has type `C`
+
+-------------------------------------------
+
+```scala
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = (x: A) => g(Hole)
+```
+
+`X` has type `A`  
+Hole has type `B`
+
+-------------------------------------------
+
+```scala
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = (x: A) => g(f(Hole))
+```
+
+`x` has type `A`  
+Hole has type `A`  
+`Hole = x`
+
+-------------------------------------------
+
+```scala
+
+def compose[A,B,C](
+    g: (B => C),
+    f: (A => B)
+): (A => C) = (x: A) => g(f(x))
+
+```
+
+-------------------------------------------
+
+## Test-driven development
+
+-------------------------------------------
+
+## Red / Green / Refactor
+
+-------------------------------------------
+
+## Type / Define / Refine
+
+-------------------------------------------
+
+## Types make communication easy
+
+-------------------------------------------
+
+## With machines
+
+-------------------------------------------
+
+## Type checking
+
+-------------------------------------------
+
+# Tooling
+
+<video src="/Users/clementd/Projects/perso/gifs/hammer.webm" autoplay loop/>
+
+-------------------------------------------
+
+<div style="background-color: blue; width: 100%; height: 100%">
+<h3><span style="font-family: 'Comic Sans MS'; color: yellow;">Haskell type syntax</span></h3>
+</div>
+
+-------------------------------------------
+
+## `a -> a`
+
+-------------------------------------------
+
+## `Int -> Int`
+
+-------------------------------------------
+
+## `a -> b -> a`
+
+-------------------------------------------
+
+## `(a, b) -> a`
+
+-------------------------------------------
+
+## `a -> (b -> a)`
+
+-------------------------------------------
+
+## `(Ord a) => [a] -> [a]`
+
+-------------------------------------------
+
+## Intent
+
+-------------------------------------------
+
+# Hoogle <3 <3
+
+<http://www.haskell.org/hoogle>
+
+-------------------------------------------
+
+## Remove duplicates
+
+-------------------------------------------
+
+## `Eq a => [a] -> [a]`
+
+-------------------------------------------
+
+<video src="./assets/hoogle1.mkv" autoplay loop/>
+
+-------------------------------------------
+
+## `[Maybe a] -> Maybe [a]`
+
+-------------------------------------------
+
+<video src="./assets/hoogle2.mkv" autoplay loop/>
+
+-------------------------------------------
+
+## With humans
+
+-------------------------------------------
+
+## Types can't always prove everything
+
+-------------------------------------------
+
+## And that's ok
+
+-------------------------------------------
+
+```scala
+def reverse[A](
+    xs: List[A]
+): List[A]
+```
 
 -------------------------------------------
 
 <div style="font-size: 1.2em;">
 
-```haskell
+```scala
 
-reverseProp ::
-    Eq a =>
-    [a] -> [a] -> Bool
-reverseProp xs ys =
-    reverse (xs ++ ys) ==
-        reverse ys ++ reverse xs
+def reverseProp[A: Equal](
+  xs: List[A],
+  ys: List[A]
+) = {
+
+    reverse(xs ++ ys) ==
+    reverse(ys) ++ reverse(xs)
+}
 ```
 
-    λ> quickCheck reverseProp
-    +++OK, passed 100 tests.
+</div>
+
+-------------------------------------------
+
+<div style="font-size: 1.2em;">
+
+```scala
+
+def reverseProp2[A: Equal](
+  xs: List[A]
+) = {
+
+    reverse(xs).length ==
+    xs.length
+}
+```
 
 </div>
+
+-------------------------------------------
+
+## Property-based reasoning
+
+-------------------------------------------
+
+## <span style="font-size: 5.5em;">∀</span>(ish)
+
+-------------------------------------------
+
+## Perfect for edge 
+
+-------------------------------------------
+
+## Test the specification
 
 -------------------------------------------
 
@@ -312,15 +883,100 @@ Unit tests
 
 -------------------------------------------
 
-Thanks
+![](./assets/pyramid.png)
 
 -------------------------------------------
 
-[Parametricity](http://dl.dropboxusercontent.com/u/7810909/media/doc/parametricity.pdf)
+## Lay out the function types
 
-<http://haskell.org>
+-------------------------------------------
 
-<http://scala.org>
+## Write property-based tests
 
-<http://rustlang.org>
+-------------------------------------------
 
+## Operations + laws
+
+-------------------------------------------
+
+<video src="/Users/clementd/Projects/perso/gifs/math.webm" autoplay loop/>
+
+-------------------------------------------
+
+## Algebra
+
+-------------------------------------------
+
+## Figure out data structures
+
+-------------------------------------------
+
+## Implement
+
+-------------------------------------------
+
+## Unit test for regressions
+
+-------------------------------------------
+
+## `???`
+
+-------------------------------------------
+
+## Profit
+
+-------------------------------------------
+
+## Types are
+
+-------------------------------------------
+
+## Safety feature
+
+-------------------------------------------
+
+## High-level reasonning tool
+
+-------------------------------------------
+
+## Communication tool
+
+-------------------------------------------
+
+## So let's use them!
+
+-------------------------------------------
+
+# Read this
+
+- [TAPL](http://www.cis.upenn.edu/~bcpierce/tapl/)
+- [PFPL](http://www.cs.cmu.edu/~rwh/plbook/book.pdf)
+
+-------------------------------------------
+
+# Read this
+
+- [FP in Scala (aka the Red Book)](http://manning.com/bjarnason)
+
+-------------------------------------------
+
+# Read this
+
+- [Functional and Reactive Domain Modelling](http://manning.com/ghosh2/)
+
+-------------------------------------------
+
+## Try Rust
+
+-------------------------------------------
+
+## Try Idris
+
+-------------------------------------------
+
+## Thanks!
+
+-------------------------------------------
+
+- [\@clementd](https://twitter.com/clementd)
+- [cltdl.fr/me](https://cltdl.fr/me)
