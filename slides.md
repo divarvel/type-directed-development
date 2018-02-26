@@ -863,11 +863,11 @@ def reverseProp2[A: Equal](
 
 -------------------------------------------
 
-## <span style="font-size: 5.5em;">∀</span>(ish)
+# <span style="font-size: 5.5em;">∀</span>(ish)
 
 -------------------------------------------
 
-## Perfect for edge 
+## Perfect for edge cases
 
 -------------------------------------------
 
@@ -899,11 +899,7 @@ Unit tests
 
 -------------------------------------------
 
-<video src="/Users/clementd/Projects/perso/gifs/math.webm" autoplay loop/>
-
--------------------------------------------
-
-## Algebra
+## (aka algebra)
 
 -------------------------------------------
 
@@ -919,15 +915,7 @@ Unit tests
 
 -------------------------------------------
 
-## `???`
-
--------------------------------------------
-
-## Profit
-
--------------------------------------------
-
-## Types are
+## Recap
 
 -------------------------------------------
 
@@ -966,6 +954,12 @@ Unit tests
 
 -------------------------------------------
 
+# Read this
+
+- [Type Driven Development with Idris](https://www.manning.com/books/type-driven-development-with-idris)
+
+-------------------------------------------
+
 ## Try Rust
 
 -------------------------------------------
@@ -973,10 +967,6 @@ Unit tests
 ## Try Idris
 
 -------------------------------------------
-
-## Thanks!
-
--------------------------------------------
-
+ 
 - [\@clementd](https://twitter.com/clementd)
 - [cltdl.fr/me](https://cltdl.fr/me)
